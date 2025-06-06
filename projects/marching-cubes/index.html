@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marching Cubes</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header>
+    <a href="/index.html" style="text-decoration:none;color:#0074d9">&larr; Back</a>
+    <h1>Marching Cubes</h1>
+  </header>
+  <main class="project-main">
+    <h2>Demo</h2>
+    <video controls class="project-video">
+      <source src="/projects/marching-cubes/demo.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <p class="project-desc-detail">
+      Generates an infinite cave using 3D Perlin noise via a compute shader that is triangulated via marching cubes.
+    </p>
+    <p>
+    Worker thread launches a compute shader that uses 3D Perlin noise to generate iso surface data that is triangulated using marching cubes. This triangulation is packed ("optimized") by short lived threads. Once the packing is done the triangulation is uploaded as a vertex buffer and treated as a "chunk".
+    </p>
+    <p>
+    Each available chunk is then rendered in turn.
+    </p>
+    <p>
+    Vulkan does not allow separate threads to access certain objects. One of these is the VkDeviceQueue that is used to submit compute commands. A worker thread owns this queue and so it is the only thread that is allowed to submit compute commands.
+    </p>
+    <p>
+    The main thread communicates with this worker queue by pushing work items onto a queue. Pushing onto / popping off the queue is protected by a simple mutex. Lockfree algorithms are not necessary here since work items are submitted relatively infrequently.
+    </p>
+    <p>
+    A semaphore controls execution of the worker thread. Each time an item is pushed onto the queue, the semaphore is incremented. Each time an item is popped off the queue, the semaphore is decremented. If the semaphore is 0, the worker thread is suspended. This prevents it from spinning.
+    </p>
+    <p>
+    The worker thread spawns additional threads to perform mesh optimizations on the result of the triangulation received from the compute shader. These threads work on memory that is completely independent of every other thread, so they don't need any synchronization.
+    </p>
+    <p>
+      This project is retired since the core idea of generating geometry on the GPU goes not appear to be a great fit.
+    </p>
+  </main>
+</body>
+</html>

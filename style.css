@@ -1,0 +1,107 @@
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    background: #002b36;
+    color: #839496;
+}
+:root {
+    --base03: #002b36;
+    --base02: #073642;
+    --base01: #586e75;
+    --base00: #657b83;
+    --base0:  #839496;
+    --base1:  #93a1a1;
+    --base2:  #eee8d5;
+    --base3:  #fdf6e3;
+    --yellow: #b58900;
+    --orange: #cb4b16;
+    --red:    #dc322f;
+    --magenta:#d33682;
+    --violet: #6c71c4;
+    --blue:   #268bd2;
+    --cyan:   #2aa198;
+    --green:  #859900;
+}
+header {
+    text-align: center;
+    padding: 2rem 0 1rem 0;
+    background: var(--base02);
+    box-shadow: 0 2px 8px rgba(0,43,54,0.25);
+}
+header h1, header p {
+    color: var(--base1);
+}
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.project-item {
+    background: var(--base02);
+    border-radius: 12px;
+    box-shadow: 0 2px 16px rgba(7,54,66,0.18);
+    overflow: hidden;
+    transition: transform 0.15s;
+    border: 1px solid var(--base01);
+}
+.project-item:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 4px 24px rgba(38,139,210,0.18);
+    border-color: var(--blue);
+}
+.project-thumb {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    background: var(--base01);
+    display: block;
+}
+.project-caption {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 1rem 1rem 0.5rem 1rem;
+    color: var(--blue);
+    text-decoration: none;
+    display: block;
+    transition: color 0.18s;
+}
+.project-caption:hover {
+    color: var(--yellow);
+}
+.project-desc {
+    font-size: 0.97rem;
+    margin: 0 1rem 1rem 1rem;
+    color: var(--base1);
+}
+
+.project-main {
+    max-width: 700px;
+    margin: 2rem auto;
+}
+.project-video {
+    width: 100%;
+    border-radius: 8px;
+    background: var(--base01);
+}
+.project-desc-detail {
+    margin-top: 1rem;
+    color: var(--base1);
+    font-size: 1.05rem;
+}
+
+@media (max-width: 600px) {
+    .grid {
+        padding: 1rem;
+        gap: 1rem;
+    }
+    header {
+        padding: 1.2rem 0 0.5rem 0;
+    }
+    .project-main {
+        margin: 1rem 0;
+        padding: 0 0.5rem;
+    }
+}
